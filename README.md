@@ -1,2 +1,2 @@
-This is a project for a uni course in NBU "Developing mobile apps" which is developed in AndroidStudio using Java.
-The app is called "Daily Art" and the idea is to store worldwide famous paintings. The user will receive a painting every day and will have the option to save it as one of his favourites.
+This is a mobile app project developed for my masters' class in NBU university "Developing mobile apps with AndroidStudio using Java/Kotlin". 
+The app is called "Daily Art" and the idea is to store worldwide famous paintings as a catalog with an option for the user to save favorite paintings.
