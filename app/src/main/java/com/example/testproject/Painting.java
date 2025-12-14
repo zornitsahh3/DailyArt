@@ -1,11 +1,14 @@
 package com.example.testproject;
 
 public class Painting {
-    //Attributes
+    // Indicates whether the painting is marked as favorite by the user
+    public boolean isFavorite = false;
     private String paintingName;
     private String authorName;
-    private int paintingImage; //represents the image-we reference the image by the id
-    //Constructor
+    // --- Represents the image-we reference the image by the id ---
+    private int paintingImage;
+    // --- Constructor ---
+    // Creates a new Painting object with a name, author, and image
     public Painting(String paintingName, String authorName,int paintingImage) {
         this.paintingName = paintingName;
         this.paintingImage = paintingImage;

@@ -1,12 +1,19 @@
 package com.example.testproject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class FavoritesManager {
 
     private static FavoritesManager instance;
-    private ArrayList<Painting> favorites = new ArrayList<>();
+
+    // Store favorites per user
+    private HashMap<String, ArrayList<Painting>> favoritesPerUser = new HashMap<>();
+
+    private FavoritesManager() {
+        // Private constructor for singleton
+    }
 
     public static FavoritesManager getInstance() {
         if (instance == null) {
@@ -15,13 +22,31 @@ public class FavoritesManager {
         return instance;
     }
 
-    public void addFavorite(Painting painting) {
-        if (!favorites.contains(painting)) {
-            favorites.add(painting);
+    // Add a painting to a specific user's favorites
+    public void addFavorite(String username, Painting painting) {
+        ArrayList<Painting> userFavorites = favoritesPerUser.getOrDefault(username, new ArrayList<>());
+        if (!userFavorites.contains(painting)) {
+            userFavorites.add(painting);
+            favoritesPerUser.put(username, userFavorites);
         }
     }
 
-    public List<Painting> getFavorites() {
-      return favorites;
+    // Retrieve favorites for a specific user
+    public List<Painting> getFavorites(String username) {
+        return favoritesPerUser.getOrDefault(username, new ArrayList<>());
+    }
+
+    // Optional: remove a painting from favorites
+    public void removeFavorite(String username, Painting painting) {
+        ArrayList<Painting> userFavorites = favoritesPerUser.get(username);
+        if (userFavorites != null) {
+            userFavorites.remove(painting);
+        }
+    }
+
+    // Optional: check if painting is in favorites
+    public boolean isFavorite(String username, Painting painting) {
+        ArrayList<Painting> userFavorites = favoritesPerUser.get(username);
+        return userFavorites != null && userFavorites.contains(painting);
     }
 }

@@ -13,20 +13,23 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    // --- The list of paintings we will use in order to display them ---
     ListView listView;
+    // --- Stores data about each painting ---
     ArrayList<Painting> paintingArrayList;
     private static MyCustomAdapter adapter;
-
+    // --- Connects the data (paintingArrayList) to the UI (listView) ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // ---Makes the Activity draw behind system bars ---
         EdgeToEdge.enable(this);
+        // ---Tells Android to use activity_main.xml as the layout for this Activity ---
         setContentView(R.layout.activity_main);
-
         // --- Receive the user's name from NameActivity ---
         String userName = getIntent().getStringExtra("username");
         if (userName != null) {
+            // ---Shows a Toast message welcoming the user---
             Toast.makeText(
                     MainActivity.this,
                     "Welcome " + userName + " to the world of paintings!",
@@ -80,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.girl_with_pearl
         );
         paintingArrayList.add(painting7);
+        // --- Set up the Adapter ---
         adapter = new MyCustomAdapter(getApplicationContext(), paintingArrayList);
         listView.setAdapter(adapter);
-
-        // --- Keep your Edge-to-Edge window insets handling ---
+        // ---Ensures that the UI does not overlap system bars ---
         ViewCompat.setOnApplyWindowInsetsListener(
                 findViewById(R.id.main),
                 (v, insets) -> {

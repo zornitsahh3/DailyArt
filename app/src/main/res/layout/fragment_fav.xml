@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5C9C68FB"
+    tools:context=".FavFragment">
+
+    <TextView
+        android:textSize="26sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Your favorite paintings at one place:" />
+    <ListView
+        android:id="@+id/favoritesListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+   <Button
+       android:id="@+id/btnBackToPaintings"
+       android:layout_marginTop="100dp"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Go back to\n the paintings" />
+</FrameLayout>

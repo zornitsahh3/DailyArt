@@ -5,16 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import com.example.testproject.FavoritesManager;
 
 public class MyCustomAdapter extends ArrayAdapter<Painting> {
 
@@ -31,22 +29,25 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
         TextView paintingName;
         TextView authorName;
         ImageView paintingImage;
-        Button buttonFavorite;
+        ImageButton buttonFavorite;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
         Painting painting = getItem(position);
         MyViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_list_layout, parent, false);
+            convertView = LayoutInflater.from(context)
+                    .inflate(R.layout.item_list_layout, parent, false);
 
             viewHolder = new MyViewHolder();
             viewHolder.paintingName = convertView.findViewById(R.id.paintingName);
             viewHolder.authorName = convertView.findViewById(R.id.paintingAuthor);
             viewHolder.paintingImage = convertView.findViewById(R.id.paintingImage);
+          //  viewHolder.buttonFavorite = convertView.findViewById(R.id.buttonFavorite);
 
             convertView.setTag(viewHolder);
         } else {
@@ -59,10 +60,24 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
             viewHolder.paintingImage.setImageResource(painting.getPaintingImage());
         }
 
-      /*  viewHolder.buttonFavorite.setOnClickListener(v -> {
-            FavoritesManager.getInstance().addFavorite(painting);
-            Toast.makeText(context, "Added to favorites!", Toast.LENGTH_SHORT).show();
-        });*/
-       return convertView;
+        // Set correct heart icon initially
+        if (painting.isFavorite) {
+            viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
+        } else {
+            viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
+        }
+
+        // --- Favorite toggle logic ---
+        viewHolder.buttonFavorite.setOnClickListener(v -> {
+            painting.isFavorite = !painting.isFavorite;
+
+            if (painting.isFavorite) {
+                viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
+            } else {
+                viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
+            }
+        });
+
+        return convertView;
     }
 }
