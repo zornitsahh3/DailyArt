@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +19,14 @@ public class FavFragment extends Fragment {
     private ListView favoritesListView;
     private MyCustomAdapter adapter;
     private Button btnBack;
-
     private String username;
 
-    public FavFragment(String username) {
-        this.username = username;
+    public static FavFragment newInstance(String username) {
+        FavFragment fragment = new FavFragment();
+        Bundle args = new Bundle();
+        args.putString("username", username);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Nullable
@@ -36,7 +39,11 @@ public class FavFragment extends Fragment {
         favoritesListView = view.findViewById(R.id.favoritesListView);
         btnBack = view.findViewById(R.id.btnBackToPaintings);
 
-        // Load favorites for this user
+        if (getArguments() != null) {
+            username = getArguments().getString("username");
+        }
+
+        // Load favorites
         List<Painting> allFavorites = FavoritesManager.getInstance().getFavorites(username);
         adapter = new MyCustomAdapter(getContext(), new ArrayList<>(allFavorites));
         favoritesListView.setAdapter(adapter);

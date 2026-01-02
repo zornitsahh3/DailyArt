@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,20 +15,19 @@ import java.util.ArrayList;
 
 public class MyCustomAdapter extends ArrayAdapter<Painting> {
 
-    private ArrayList<Painting> paintingsArrayList;
-    private Context context;
+    private final ArrayList<Painting> paintingsArrayList;
+    private final Context context;
 
-    public MyCustomAdapter(Context context1, ArrayList<Painting> paintingsArrayList) {
-        super(context1, R.layout.item_list_layout, paintingsArrayList);
+    public MyCustomAdapter(Context context, ArrayList<Painting> paintingsArrayList) {
+        super(context, R.layout.item_list_layout, paintingsArrayList);
         this.paintingsArrayList = paintingsArrayList;
-        this.context = context1;
+        this.context = context;
     }
 
     private static class MyViewHolder {
         TextView paintingName;
         TextView authorName;
         ImageView paintingImage;
-        ImageButton buttonFavorite;
     }
 
     @NonNull
@@ -47,7 +45,6 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
             viewHolder.paintingName = convertView.findViewById(R.id.paintingName);
             viewHolder.authorName = convertView.findViewById(R.id.paintingAuthor);
             viewHolder.paintingImage = convertView.findViewById(R.id.paintingImage);
-          //  viewHolder.buttonFavorite = convertView.findViewById(R.id.buttonFavorite);
 
             convertView.setTag(viewHolder);
         } else {
@@ -59,24 +56,6 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
             viewHolder.authorName.setText(painting.getAuthorName());
             viewHolder.paintingImage.setImageResource(painting.getPaintingImage());
         }
-
-        // Set correct heart icon initially
-        if (painting.isFavorite) {
-            viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
-        } else {
-            viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
-        }
-
-        // --- Favorite toggle logic ---
-        viewHolder.buttonFavorite.setOnClickListener(v -> {
-            painting.isFavorite = !painting.isFavorite;
-
-            if (painting.isFavorite) {
-                viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
-            } else {
-                viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
-            }
-        });
 
         return convertView;
     }
