@@ -1,8 +1,13 @@
 package com.example.testproject;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "paintings")
 public class Painting {
     // Indicates whether the painting is marked as favorite by the user
     public boolean isFavorite = false;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String paintingName;
     private String authorName;
     // --- Represents the image-we reference the image by the id ---
@@ -15,6 +20,8 @@ public class Painting {
         this.authorName=authorName;
     }
     //Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
     public String getPaintingName() {
         return paintingName;
     }

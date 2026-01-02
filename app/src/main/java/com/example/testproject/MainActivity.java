@@ -43,17 +43,25 @@ public class MainActivity extends AppCompatActivity {
 
         // ------------------- LISTVIEW SETUP -------------------
         listView = findViewById(R.id.listview);
-        paintingArrayList = new ArrayList<>();
+        // --- Initialize database ---
+        AppDatabase db = AppDatabase.getInstance(this);
+        PaintingDao dao = db.paintingDao();
 
-        paintingArrayList.add(new Painting("Mona Lisa", "Leonardo da Vinci", R.drawable.mona_lisa));
-        paintingArrayList.add(new Painting("The Birth of Venus", "Sandro Botticelli", R.drawable.birth_of_vinus));
-        paintingArrayList.add(new Painting("The Scream", "Evard Munch", R.drawable.scream));
-        paintingArrayList.add(new Painting("American Gothic", "Grant Wood", R.drawable.american_gothic));
-        paintingArrayList.add(new Painting("The Arnolfini", "Jan van Eyck", R.drawable.arnolfini_portrait));
-        paintingArrayList.add(new Painting("Whistler’s Mother", "James McNeill Whistler", R.drawable.whistlers_mother));
-        paintingArrayList.add(new Painting("Girl with a Pearl", "Johannes Vermeer", R.drawable.girl_with_pearl));
+// --- Insert default paintings if DB is empty ---
+        if (dao.getAllPaintings().isEmpty()) {
+            dao.insert(new Painting("Mona Lisa", "Leonardo da Vinci", R.drawable.mona_lisa));
+            dao.insert(new Painting("The Birth of Venus", "Sandro Botticelli", R.drawable.birth_of_vinus));
+            dao.insert(new Painting("The Scream", "Evard Munch", R.drawable.scream));
+            dao.insert(new Painting("American Gothic", "Grant Wood", R.drawable.american_gothic));
+            dao.insert(new Painting("The Arnolfini", "Jan van Eyck", R.drawable.arnolfini_portrait));
+            dao.insert(new Painting("Whistler’s Mother", "James McNeill Whistler", R.drawable.whistlers_mother));
+            dao.insert(new Painting("Girl with a Pearl", "Johannes Vermeer", R.drawable.girl_with_pearl));
+        }
 
-        // --- Set up the Adapter ---
+// --- Load paintings from database ---
+        paintingArrayList = new ArrayList<>(dao.getAllPaintings());
+
+// --- Set up adapter ---
         adapter = new MyCustomAdapter(getApplicationContext(), paintingArrayList);
         listView.setAdapter(adapter);
 
