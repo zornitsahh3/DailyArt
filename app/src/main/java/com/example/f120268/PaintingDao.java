@@ -1,10 +1,8 @@
-package com.example.testproject;
+package com.example.f120268;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-
-import com.example.testproject.Painting;
 
 import java.util.List;
 

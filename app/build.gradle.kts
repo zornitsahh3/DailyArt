@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.testproject"
+    namespace = "com.example.f120268"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.example.testproject"
+        applicationId = "com.example.testproject.f120168"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

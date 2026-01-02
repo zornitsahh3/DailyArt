@@ -1,12 +1,9 @@
-package com.example.testproject;
+package com.example.f120268;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
-
-import com.example.testproject.Painting;
-import com.example.testproject.PaintingDao;
 
 @Database(entities = {Painting.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {

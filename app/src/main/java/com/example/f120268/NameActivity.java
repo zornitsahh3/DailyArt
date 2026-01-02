@@ -1,4 +1,4 @@
-package com.example.testproject;
+package com.example.f120268;
 
 import android.content.Intent;
 import android.os.Bundle;
