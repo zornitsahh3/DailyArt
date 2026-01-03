@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         // ------------------- TOOLBAR -------------------
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
         // --- Get username from NameActivity ---
         String userName = getIntent().getStringExtra("username");
         if (userName != null) {

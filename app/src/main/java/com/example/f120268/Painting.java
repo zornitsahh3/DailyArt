@@ -42,4 +42,24 @@ public class Painting {
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Painting painting = (Painting) o;
+        // Compare by painting data (name, author, image) rather than ID
+        // since ID might be 0 for unsaved paintings or different for same painting
+        return paintingImage == painting.paintingImage &&
+                paintingName != null && paintingName.equals(painting.paintingName) &&
+                authorName != null && authorName.equals(painting.authorName);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (paintingName != null ? paintingName.hashCode() : 0);
+        result = 31 * result + (authorName != null ? authorName.hashCode() : 0);
+        result = 31 * result + paintingImage;
+        return result;
+    }
 }
