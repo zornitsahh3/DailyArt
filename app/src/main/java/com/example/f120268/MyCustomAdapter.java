@@ -12,6 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 public class MyCustomAdapter extends ArrayAdapter<Painting> {
@@ -59,7 +62,19 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
         if (painting != null) {
             viewHolder.paintingName.setText(painting.getPaintingName());
             viewHolder.authorName.setText(painting.getAuthorName());
-            viewHolder.paintingImage.setImageResource(painting.getPaintingImage());
+            
+            // Load image from URL if available, otherwise use local drawable
+            if (painting.hasImageUrl()) {
+                Glide.with(context)
+                    .load(painting.getImageUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_launcher_foreground) // Placeholder while loading
+                    .error(R.drawable.ic_launcher_foreground) // Error placeholder
+                    .into(viewHolder.paintingImage);
+            } else {
+                // Use local drawable resource
+                viewHolder.paintingImage.setImageResource(painting.getPaintingImage());
+            }
 
             // Set correct heart icon
             if (FavoritesManager.getInstance().isFavorite(username, painting)) {
