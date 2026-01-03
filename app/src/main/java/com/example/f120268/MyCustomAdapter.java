@@ -69,13 +69,20 @@ public class MyCustomAdapter extends ArrayAdapter<Painting> {
             }
 
             // Heart button click listener
+            // Get painting from position to avoid issues with view recycling
+            final int currentPosition = position;
             viewHolder.buttonFavorite.setOnClickListener(v -> {
-                if (FavoritesManager.getInstance().isFavorite(username, painting)) {
-                    FavoritesManager.getInstance().removeFavorite(username, painting);
-                    viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
-                } else {
-                    FavoritesManager.getInstance().addFavorite(username, painting);
-                    viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
+                Painting currentPainting = getItem(currentPosition);
+                if (currentPainting != null) {
+                    if (FavoritesManager.getInstance().isFavorite(username, currentPainting)) {
+                        FavoritesManager.getInstance().removeFavorite(username, currentPainting);
+                        viewHolder.buttonFavorite.setImageResource(R.drawable.sharp);
+                    } else {
+                        FavoritesManager.getInstance().addFavorite(username, currentPainting);
+                        viewHolder.buttonFavorite.setImageResource(R.drawable.filled);
+                    }
+                    // Notify adapter that data changed to update other views if needed
+                    notifyDataSetChanged();
                 }
             });
         }

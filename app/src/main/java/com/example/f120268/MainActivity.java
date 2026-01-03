@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     ArrayList<Painting> paintingArrayList;
     private static MyCustomAdapter adapter;
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         // --- Get username from NameActivity ---
-        String userName = getIntent().getStringExtra("username");
+        userName = getIntent().getStringExtra("username");
         if (userName != null) {
             Toast.makeText(
                     MainActivity.this,
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (id == R.id.menu_favorites) { // Make sure your menu item id is correct
             // Open Favorites fragment
-            FavFragment favFragment = new FavFragment(getIntent().getStringExtra("username"));
+            FavFragment favFragment = new FavFragment(userName);
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.main, favFragment)

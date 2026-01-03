@@ -53,9 +53,11 @@ public class FavFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // Refresh favorites whenever fragment is visible
-        List<Painting> allFavorites = FavoritesManager.getInstance().getFavorites(username);
-        adapter.clear();
-        adapter.addAll(allFavorites);
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            List<Painting> allFavorites = FavoritesManager.getInstance().getFavorites(username);
+            adapter.clear();
+            adapter.addAll(allFavorites);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
